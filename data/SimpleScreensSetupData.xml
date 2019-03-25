@@ -291,4 +291,25 @@ along with this software (see the LICENSE.md file). If not, see
         <fields fieldName="transactionDate" fieldPeriod="year" fieldPerOffset="0"/>
         <userGroups userGroupId="ALL_USERS"/>
     </moqui.screen.form.FormListFind>
+
+    <!-- Accounting/Transaction/FindGiftCardsAndStoreCredit -->
+    <moqui.screen.form.FormConfig formConfigId="AT_FTE_AR_CUST_LEDG"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
+        <fields positionSequence="0" positionIndex="0" fieldName="otherPartyId"/>
+        <fields positionSequence="0" positionIndex="1" fieldName="acctgTransId"/>
+        <fields positionSequence="0" positionIndex="2" fieldName="transactionDate"/>
+        <fields positionSequence="0" positionIndex="3" fieldName="acctgTransTypeEnumId"/>
+        <fields positionSequence="0" positionIndex="4" fieldName="description"/>
+        <fields positionSequence="0" positionIndex="5" fieldName="invoiceId"/>
+        <fields positionSequence="0" positionIndex="6" fieldName="productId"/>
+        <fields positionSequence="0" positionIndex="7" fieldName="glAccountId"/>
+        <fields positionSequence="0" positionIndex="8" fieldName="debit"/>
+        <fields positionSequence="0" positionIndex="9" fieldName="credit"/>
+    </moqui.screen.form.FormConfig>
+    <moqui.screen.form.FormListFind formListFindId="AT_FTE_AR_CUST_LEDG" formConfigId="AT_FTE_AR_CUST_LEDG"
+            description="AR Customer Ledger" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindTransactionEntry.xml.form_list$TransactionEntryList">
+        <fields fieldName="transactionDate" fieldPeriod="year" fieldPerOffset="0"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
 </entity-facade-xml>
