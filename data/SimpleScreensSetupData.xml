@@ -293,23 +293,51 @@ along with this software (see the LICENSE.md file). If not, see
     </moqui.screen.form.FormListFind>
 
     <!-- Accounting/Transaction/FindGiftCardsAndStoreCredit -->
-    <moqui.screen.form.FormConfig formConfigId="AT_FTE_AR_CUST_LEDG"
+    <moqui.screen.form.FormConfig formConfigId="AT_FTE_GIFT"
             formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
         <fields positionSequence="0" positionIndex="0" fieldName="otherPartyId"/>
-        <fields positionSequence="0" positionIndex="1" fieldName="acctgTransId"/>
+        <fields positionSequence="0" positionIndex="1" fieldName="organizationPartyId"/>
         <fields positionSequence="0" positionIndex="2" fieldName="transactionDate"/>
-        <fields positionSequence="0" positionIndex="3" fieldName="acctgTransTypeEnumId"/>
-        <fields positionSequence="0" positionIndex="4" fieldName="description"/>
-        <fields positionSequence="0" positionIndex="5" fieldName="invoiceId"/>
-        <fields positionSequence="0" positionIndex="6" fieldName="productId"/>
-        <fields positionSequence="0" positionIndex="7" fieldName="glAccountId"/>
-        <fields positionSequence="0" positionIndex="8" fieldName="debit"/>
-        <fields positionSequence="0" positionIndex="9" fieldName="credit"/>
+        <fields positionSequence="0" positionIndex="3" fieldName="finAccountCode"/>
+        <fields positionSequence="0" positionIndex="4" fieldName="orderId"/>
+        <fields positionSequence="0" positionIndex="5" fieldName="acctgTransId"/>
+        <fields positionSequence="0" positionIndex="6" fieldName="ownerPartyId"/>
+        <fields positionSequence="0" positionIndex="7" fieldName="finAccountTypeId"/>
+        <fields positionSequence="0" positionIndex="8" fieldName="reasonEnumId"/>
+        <fields positionSequence="0" positionIndex="9" fieldName="amount"/>
     </moqui.screen.form.FormConfig>
-    <moqui.screen.form.FormListFind formListFindId="AT_FTE_AR_CUST_LEDG" formConfigId="AT_FTE_AR_CUST_LEDG"
-            description="AR Customer Ledger" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
-            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindTransactionEntry.xml.form_list$TransactionEntryList">
-        <fields fieldName="transactionDate" fieldPeriod="year" fieldPerOffset="0"/>
+    <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_PURCHASES" formConfigId="AT_FTE_GIFT"
+            description="Purchaces only" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
+            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="GifiCard"/>
+            <fields fieldName="reasonEnumId" fieldOperator="equals" fieldValue="FatrInitDeposit"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
+    <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_RADDMPTIONS" formConfigId="AT_FTE_GIFT"
+            description="Redemptions only" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
+            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="CustomerCredit"/>
+            <fields fieldName="reasonEnumId" fieldOperator="in" fieldValue="FatrPurchase,FatrDisbursement"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
+    <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_INCREASES" formConfigId="AT_FTE_GIFT"
+            description="Increases" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
+            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="CustomerCredit"/>
+            <fields fieldName="amount_from" fieldOperator="equals" fieldValue="0.0"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
+    <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_DECREASES" formConfigId="AT_FTE_GIFT"
+            description="Decreases" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
+            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="CustomerCredit"/>
+            <fields fieldName="amount_thru" fieldOperator="equals" fieldValue="0.0"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
+    <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_GIFTCARD" formConfigId="AT_FTE_GIFT"
+            description="All gift card" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
+            formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
+            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="CustomerCredit"/>
         <userGroups userGroupId="ALL_USERS"/>
     </moqui.screen.form.FormListFind>
 </entity-facade-xml>
