@@ -301,10 +301,11 @@ along with this software (see the LICENSE.md file). If not, see
         <fields positionSequence="0" positionIndex="3" fieldName="finAccountCode"/>
         <fields positionSequence="0" positionIndex="4" fieldName="orderId"/>
         <fields positionSequence="0" positionIndex="5" fieldName="acctgTransId"/>
-        <fields positionSequence="0" positionIndex="6" fieldName="ownerPartyId"/>
-        <fields positionSequence="0" positionIndex="7" fieldName="finAccountTypeId"/>
-        <fields positionSequence="0" positionIndex="8" fieldName="reasonEnumId"/>
-        <fields positionSequence="0" positionIndex="9" fieldName="amount"/>
+        <fields positionSequence="0" positionIndex="6" fieldName="externalId"/>
+        <fields positionSequence="0" positionIndex="7" fieldName="ownerPartyId"/>
+        <fields positionSequence="0" positionIndex="8" fieldName="finAccountTypeId"/>
+        <fields positionSequence="0" positionIndex="9" fieldName="reasonEnumId"/>
+        <fields positionSequence="0" positionIndex="10" fieldName="amount"/>
     </moqui.screen.form.FormConfig>
     <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_PURCHASES" formConfigId="AT_FTE_GIFT"
             description="Purchaces Only" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
@@ -337,7 +338,7 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.screen.form.FormListFind formListFindId="AT_FTE_GIFT_GIFTCARD" formConfigId="AT_FTE_GIFT"
             description="All gift card" orderByField="-transactionDate,-acctgTransId,acctgTransEntrySeqId"
             formLocation="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml.form_list$GiftCardsAndStoreCreditList">
-            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="CustomerCredit"/>
+            <fields fieldName="finAccountTypeId" fieldOperator="equals" fieldValue="GiftCard"/>
         <userGroups userGroupId="ALL_USERS"/>
     </moqui.screen.form.FormListFind>
 

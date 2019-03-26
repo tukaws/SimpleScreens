@@ -19,14 +19,14 @@ along with this software (see the LICENSE.md file). If not, see
     <actions>
         <set field="glAccountCodeMask" from="ec.user.getPreference('GlAccountCodeMask')"/>
         <set field="accountCodeFormatter" from="masker(glAccountCodeMask, '0')"/><!-- will be null if no mask -->
+        <entity-find entity-name="mantle.account.financial.FinancialAccountType" list="financialAccountTypeList"></entity-find>
     </actions>
     <widgets>
         <form-list name="GiftCardsAndStoreCreditList" list="acctgTransEntryList" skip-form="true" header-dialog="true"
                    select-columns="true" saved-finds="true" show-csv-button="true">
              <entity-find entity-name="mantle.account.financial.FinancialAccountAndTransSummary" list="acctgTransList">
                 <search-form-inputs default-order-by="-transactionDate">
-                    <default-parameters transactionDate_poffset="-1" transactionDate_period="30d"/>
-                    <default-parameters finAccountTypeId="CustomerCredit"/>
+                    <default-parameters transactionDate_poffset="-1" transactionDate_period="30d" finAccountTypeId="GiftCard"/>
                     </search-form-inputs>
             </entity-find>
             <!-- List Column -->
@@ -52,12 +52,24 @@ along with this software (see the LICENSE.md file). If not, see
             </field>
             <field name="finAccountCode"><header-field title="Gift Card"><text-find size="20" hide-options="true"/></header-field>
                 <default-field><display/></default-field></field>
-            <field name="orderId"><header-field title="Order" show-order-by="true"><text-find size="20" hide-options="ignore-case"/></header-field>
-                <default-field><link url="editInvoice" text="${invoiceId}" link-type="anchor" condition="orderId"/></default-field></field>
-            <field name="acctgTransId"><header-field show-order-by="true" title="Internal TX ID"><text-find hide-options="true" default-operator="begins"/></header-field>
-                <default-field><link url="editTransaction" text="${acctgTransId}" link-type="anchor"/></default-field></field>
-            <field name="ownerPartyId"><header-field title="Customer Name"></header-field><default-field><display/></default-field></field>
-            <field name="finAccountTypeId"><header-field title="Account Type"></header-field><default-field><display/></default-field></field>
+            <field name="orderId"><header-field title="Order" show-order-by="true"><text-find size="20" hide-options="true" default-operator="ignore-case"/></header-field>
+                <default-field></default-field></field>
+            <field name="acctgTransId"><header-field show-order-by="true" title="Internal TX ID"><text-find hide-options="true" default-operator="ignore-case"/></header-field>
+                <default-field></default-field></field>
+            <field name="externalId"><header-field show-order-by="true" title="External TX ID"><text-find hide-options="true" default-operator="ignore-case"/></header-field>
+                <default-field></default-field></field>
+            <field name="ownerPartyId">
+                <header-field title="CustomerName"><drop-down allow-empty="true">
+                    <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></header-field>
+                <default-field><link url="editParty" link-type="anchor" parameter-map="[partyId:ownerPartyId]"
+                        entity-name="mantle.party.PartyDetail" text="PartyNameTemplate" condition="ownerPartyId"/></default-field>
+            </field>
+            <field name="finAccountTypeId"><header-field title="Account Type" show-order-by="true"><drop-down allow-empty="true" allow-multiple="true">
+                    <entity-options key="${finAccountTypeId}" text="${description}"><entity-find entity-name="mantle.account.financial.FinancialAccountType">
+                        <order-by field-name="description"/>
+                    </entity-find></entity-options>
+                </drop-down></header-field>
+                <default-field><display-entity entity-name="mantle.account.financial.FinancialAccountType"/></default-field></field>
             <field name="reasonEnumId">
                 <header-field title="Transction Reason" show-order-by="true">
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
@@ -65,22 +77,20 @@ along with this software (see the LICENSE.md file). If not, see
                         <set field="allowMultiple" value="true"/>
                         <set field="allowEmpty" value="true"/></widget-template-include>
                 </header-field>
-                <default-field><display-entity entity-name="moqui.basic.StatusItem"/></default-field>
+                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
             </field>
             <field name="reasonEnumId"><header-field title="Transction Reason"></header-field><default-field><display/></default-field></field>
             <field name="amount" align="right" show-total="sum"><header-field title="Credited/Debit Amount" show-order-by="true"><range-find size="15"/></header-field>
                 <default-field><display format="#,##0"/></default-field></field>
             <field name="find"><header-field title="Find"><submit/></header-field></field>
             <!-- List Column -->
-            <form-list-column><field-ref name="otherPartyId"/></form-list-column>
-            <form-list-column><field-ref name="organizationPartyId"/></form-list-column>
+            <form-list-column><field-ref name="otherPartyId"/><field-ref name="organizationPartyId"/></form-list-column>
             <form-list-column><field-ref name="transactionDate"/></form-list-column>
             <form-list-column><field-ref name="finAccountCode"/></form-list-column>
             <form-list-column><field-ref name="orderId"/></form-list-column>
-            <form-list-column><field-ref name="acctgTransId"/></form-list-column>
+            <form-list-column><field-ref name="acctgTransId"/><field-ref name="externalId"/></form-list-column>
             <form-list-column><field-ref name="ownerPartyId"/></form-list-column>
-            <form-list-column><field-ref name="finAccountTypeId"/></form-list-column>
-            <form-list-column><field-ref name="reasonEnumId"/></form-list-column>
+            <form-list-column><field-ref name="finAccountTypeId"/><field-ref name="reasonEnumId"/></form-list-column>
             <form-list-column><field-ref name="amount"/></form-list-column>
         </form-list>
     </widgets>
