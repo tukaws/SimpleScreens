@@ -30,11 +30,11 @@ along with this software (see the LICENSE.md file). If not, see
                     </search-form-inputs>
             </entity-find>
             <!-- List Column -->
-            <field name="otherPartyId">
+            <field name="pseudoId">
                 <header-field title="Client"><drop-down allow-empty="true">
                     <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></header-field>
-                <default-field><link url="editParty" link-type="anchor" parameter-map="[partyId:otherPartyId]"
-                        entity-name="mantle.party.PartyDetail" text="PartyNameTemplate" condition="otherPartyId"/></default-field>
+                <default-field><link url="editParty" link-type="anchor" parameter-map="[partyId:pseudoId]"
+                        entity-name="mantle.party.PartyDetail" text="PartyNameTemplate" condition="pseudoId"/></default-field>
             </field>
             <field name="organizationPartyId">
                 <header-field title="Client Internal ID"><drop-down allow-empty="true">
@@ -54,7 +54,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><display/></default-field></field>
             <field name="orderId"><header-field title="Order" show-order-by="true"><text-find size="20" hide-options="true" default-operator="ignore-case"/></header-field>
                 <default-field></default-field></field>
-            <field name="acctgTransId"><header-field show-order-by="true" title="Internal TX ID"><text-find hide-options="true" default-operator="ignore-case"/></header-field>
+            <field name="finAccountTransId"><header-field show-order-by="true" title="Internal TX ID"><text-find hide-options="true" default-operator="ignore-case"/></header-field>
                 <default-field></default-field></field>
             <field name="externalId"><header-field show-order-by="true" title="External TX ID"><text-find hide-options="true" default-operator="ignore-case"/></header-field>
                 <default-field></default-field></field>
@@ -84,11 +84,11 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><display format="#,##0"/></default-field></field>
             <field name="find"><header-field title="Find"><submit/></header-field></field>
             <!-- List Column -->
-            <form-list-column><field-ref name="otherPartyId"/><field-ref name="organizationPartyId"/></form-list-column>
+            <form-list-column><field-ref name="pseudoId"/><field-ref name="organizationPartyId"/></form-list-column>
             <form-list-column><field-ref name="transactionDate"/></form-list-column>
             <form-list-column><field-ref name="finAccountCode"/></form-list-column>
             <form-list-column><field-ref name="orderId"/></form-list-column>
-            <form-list-column><field-ref name="acctgTransId"/><field-ref name="externalId"/></form-list-column>
+            <form-list-column><field-ref name="finAccountTransId"/><field-ref name="externalId"/></form-list-column>
             <form-list-column><field-ref name="ownerPartyId"/></form-list-column>
             <form-list-column><field-ref name="finAccountTypeId"/><field-ref name="reasonEnumId"/></form-list-column>
             <form-list-column><field-ref name="amount"/></form-list-column>

@@ -179,7 +179,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </container-dialog>
                 <link url="../../Transaction" text="Transactions"/>
                 <link url="../../Transaction/FindTransactionEntry" text="Transaction Entries"/>
-                <link url="../../Transaction/FindGiftCardsAndStoreCredit" text="Gift Cards and Store Credit Report"/>
+                <link url="../../Transaction/FindGiftCardsAndStoreCredit" text="Gift Cards Report"/>
                 <link url="../../Transaction/FindStoreCredit" text="Store Credit Report"/>
 
                 <container>

@@ -25,8 +25,7 @@ along with this software (see the LICENSE.md file). If not, see
            select-columns="true" saved-finds="true" show-csv-button="true" extends="component://SimpleScreens/screen/SimpleScreens/Accounting/Transaction/FindGiftCardsAndStoreCredit.xml#GiftCardsAndStoreCreditList">
            <entity-find entity-name="mantle.account.financial.FinancialAccountAndTransSummary" list="acctgTransList">
                 <search-form-inputs default-order-by="-transactionDate">
-                    <default-parameters transactionDate_poffset="-1" transactionDate_period="30d"/>
-                    <default-parameters finAccountTypeId="CustomerCredit"/>
+                    <default-parameters transactionDate_poffset="-1" transactionDate_period="30d" finAccountTypeId="CustomerCredit"/>
                 </search-form-inputs>
             </entity-find>
         </form-list>
