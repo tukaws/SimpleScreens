@@ -59,12 +59,6 @@ along with this software (see the LICENSE.md file). If not, see
                           in-map="[partyId:document.partyId, partyContentTypeEnumIdList:['PcntFaceImage']]"/>
                 <set field="row" from="[:]"/>
                 <if condition="document_index>10"><break/></if>
-                <entity-find-one entity-name="mantle.party.PartyDetail" value-field="party">
-                    <field-map field-name="partyId" from="document.partyId"/>
-                </entity-find-one>
-                <if condition="!document.customerStatusId.equals(party.customerStatusId)">
-                    <set field="document.customerStatusId" from="party.customerStatusId"/>
-                </if>
                 <if condition="document.lastName">
                     <set field="row.lastName" from="document.lastName"/>
                 </if>
